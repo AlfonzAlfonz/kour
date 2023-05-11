@@ -1,10 +1,5 @@
 import L from "leaflet";
-import { VectorLayer } from "./VectorLayer";
-
-interface MapState {
-  points: L.Point[];
-  loaded: boolean;
-}
+import { MapState, VectorLayer } from "./VectorLayer";
 
 export interface WebMap {
   leafletMap: L.Map;
@@ -16,16 +11,12 @@ export const createMap = (): WebMap => {
   const leafletMap = L.map("map").setView([50.085448, 14.446865], 13);
 
   L.tileLayer(
-    "https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=cHdSuknoOcLSEePavjoJ",
-    {
-      attribution:
-        '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-    }
+    "https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=cHdSuknoOcLSEePavjoJ"
   ).addTo(leafletMap);
 
   const state: MapState = { points: [], loaded: false };
 
-  const layer = new VectorLayer(state);
+  const layer = new VectorLayer();
   layer.state = state;
   leafletMap.addLayer(layer);
   return {

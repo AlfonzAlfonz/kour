@@ -9,9 +9,10 @@ struct Settings: View {
     
     @State var showReset: Bool = false
     @State var showExport: Bool = false
+    @State var showAttribution: Bool = false
     
     var body: some View {
-        List{
+        List {
             Button("Export") {
                 var text  = ""
                 for l in locations {
@@ -26,30 +27,61 @@ struct Settings: View {
             ) { result in
                     
                 }
-            Text("Danger")
-            Button("Reset") {
-                showReset = true
-            }
-            .confirmationDialog(
-                "Are you sure?",
-                 isPresented: $showReset
-            ) {
-                Button("Yes, delete all data"){
-//                        for l in locations {
-//                            managedObjectContext.delete(l)
-//                        }
-//                        do {
-//                            try managedObjectContext.save()
-//                        } catch {
-//
-//                        }
-                    showReset = false
-                }
-                    .foregroundColor(.red)
-                Button("No") {
-                    showReset = false
-                }
-            }
+            Button("Attribution") {
+                showAttribution = true
+            }.sheet(isPresented: $showAttribution, content: {
+                VStack{
+                    Label("Attribution", systemImage: "star.fill")
+                    List {
+                        Group {
+                            Label("Leaflet", systemImage: "map")
+                            Text("""
+Website:
+https://leafletjs.com/
+""")
+                        }
+                        Group {
+                            Label("OpenStreetMaps", systemImage: "map")
+                            Text("""
+Licensed under license:
+https://www.openstreetmap.org/copyright
+""")
+                        }
+                        Group {
+                            Label("Map Tiler", systemImage: "map")
+                            Text("""
+Licensed under license:
+https://www.maptiler.com/copyright/
+""")
+                        }
+                    }
+                    Spacer()
+                }.padding(16)
+            })
+//            Text("Danger")
+//            Button("Reset") {
+//                showReset = true
+//            }
+//            .confirmationDialog(
+//                "Are you sure?",
+//                 isPresented: $showReset
+//            ) {
+//                Button("Yes, delete all data") {
+////                        for l in locations {
+////                            managedObjectContext.delete(l)
+////                        }
+////                        do {
+////                            try managedObjectContext.save()
+////                        } catch {
+////
+////                        }
+//                    showReset = false
+//                }
+//                    .foregroundColor(.red)
+//                Button("No") {
+//                    showReset = false
+//                }
+//            }
         }
     }
 }

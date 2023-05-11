@@ -57,7 +57,7 @@ class WebviewController: UIViewController {
         let newItems = Array(items[lastAddedIndex...])
 
         lastAddedIndex = items.count
-            
+
         webView.evaluateJavaScript("""
             window.map.addPoints([
                 \(newItems.map({"[\($0.latitude), \($0.longitude)]"}).joined(separator: ", "))
@@ -65,5 +65,4 @@ class WebviewController: UIViewController {
         """)
            
     }
-
 }

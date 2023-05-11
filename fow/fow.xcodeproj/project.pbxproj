@@ -45,7 +45,7 @@
 /* Begin PBXFileReference section */
 		3500F4CA29EC765F004C02A0 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		3500F4CC29EC8EF3004C02A0 /* FOWMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FOWMap.swift; sourceTree = "<group>"; };
-		356E1C7329E77F7E00D28384 /* fow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		356E1C7329E77F7E00D28384 /* Kouř.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kouř.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		356E1C7629E77F7E00D28384 /* fowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fowApp.swift; sourceTree = "<group>"; };
 		356E1C7829E77F7E00D28384 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		356E1C7A29E77F7F00D28384 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 		356E1C7429E77F7E00D28384 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				356E1C7329E77F7E00D28384 /* fow.app */,
+				356E1C7329E77F7E00D28384 /* Kouř.app */,
 				356E1C8329E77F7F00D28384 /* fowTests.xctest */,
 				356E1C8D29E77F8000D28384 /* fowUITests.xctest */,
 			);
@@ -175,7 +175,7 @@
 			packageProductDependencies = (
 			);
 			productName = fow;
-			productReference = 356E1C7329E77F7E00D28384 /* fow.app */;
+			productReference = 356E1C7329E77F7E00D28384 /* Kouř.app */;
 			productType = "com.apple.product-type.application";
 		};
 		356E1C8229E77F7F00D28384 /* fowTests */ = {
@@ -464,7 +464,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = fow/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app requires location";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "To reveal the map, this app needs location";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app requires location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -478,7 +478,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = homolik.fow;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Kouř";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -498,7 +498,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = fow/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app requires location";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "To reveal the map, this app needs location";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app requires location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -512,7 +512,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = homolik.fow;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Kouř";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

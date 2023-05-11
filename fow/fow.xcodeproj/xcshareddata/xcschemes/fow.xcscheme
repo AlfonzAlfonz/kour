@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "356E1C7229E77F7E00D28384"
-               BuildableName = "fow.app"
+               BuildableName = "Kour&#x30c;.app"
                BlueprintName = "fow"
                ReferencedContainer = "container:fow.xcodeproj">
             </BuildableReference>
@@ -67,7 +67,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "356E1C7229E77F7E00D28384"
-            BuildableName = "fow.app"
+            BuildableName = "Kour&#x30c;.app"
             BlueprintName = "fow"
             ReferencedContainer = "container:fow.xcodeproj">
          </BuildableReference>
@@ -84,7 +84,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "356E1C7229E77F7E00D28384"
-            BuildableName = "fow.app"
+            BuildableName = "Kour&#x30c;.app"
             BlueprintName = "fow"
             ReferencedContainer = "container:fow.xcodeproj">
          </BuildableReference>

@@ -37,7 +37,7 @@ class WebviewController: UIViewController {
         super.viewDidLoad()
         
         webView.load(URLRequest(
-            url: URL(string: "http://localhost:5173/")!
+            url: Bundle.main.url(forResource: "build", withExtension: "html")!
         ))
 
         view.addSubview(webView)

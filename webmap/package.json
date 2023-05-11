@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite -m dev",
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "node build.js",
     "preview": "vite preview"
   },
   "devDependencies": {
@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "leaflet": "^1.9.3",
-    "polygon-offset": "^0.3.2"
+    "node-html-parser": "^6.1.5",
+    "polygon-offset": "^0.3.2",
+    "zx": "^7.2.1"
   }
 }

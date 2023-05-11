@@ -10,7 +10,7 @@ interface Props {
 
 const FOGSIZE = 20;
 
-export const FOWLayer: FOWLayerClass = L.GridLayer.extend({
+export const CanvasLayer: FOWLayerClass = L.GridLayer.extend({
   createTile: function (
     this: L.GridLayer,
     coords: { x: number; y: number; z: number }
@@ -19,7 +19,7 @@ export const FOWLayer: FOWLayerClass = L.GridLayer.extend({
 
     var tile = document.createElement("canvas");
 
-    if(!points) return tile;
+    if (!points) return tile;
 
     var tileSize = this.getTileSize();
     tile.setAttribute("width", String(tileSize.x));
@@ -68,20 +68,7 @@ export const FOWLayer: FOWLayerClass = L.GridLayer.extend({
       ctx.arc(x, y, r, 0, 2 * Math.PI);
       ctx.fillStyle = "";
       ctx.fill();
-
-      // ctx.globalCompositeOperation = "lighten";
-      // ctx.arc(x, y, r, 0, 2 * Math.PI);
-      // const gradient = ctx.createRadialGradient(x, y, 0, x, y, r);
-      // gradient.addColorStop(0.9, "rgba(255, 255, 255, 0)");
-      // gradient.addColorStop(1, "black");
-      // ctx.fillStyle = gradient;
-      // ctx.fill();
     }
-
-    // if (!import.meta.env.PROD) {
-    //   ctx.fillStyle = "red";
-    //   ctx.fillText(String(current.length), tileSize.x / 2, tileSize.x / 2);
-    // }
 
     return tile;
   },

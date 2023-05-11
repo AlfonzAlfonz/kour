@@ -18,10 +18,9 @@ struct LocationStore {
             NSSortDescriptor(key: "timestamp", ascending: true)
         ]
         
-        let weekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date.now) ?? Date.now
-        let timestamp = Int(weekAgo.timeIntervalSince1970)
-        
-        req.predicate = NSPredicate(format: "timestamp > %@", argumentArray: [timestamp])
+//        let weekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date.now) ?? Date.now
+//        let timestamp = Int(weekAgo.timeIntervalSince1970)
+//        req.predicate = NSPredicate(format: "timestamp > %@", argumentArray: [timestamp])
             
         
         let controller = NSFetchedResultsController(

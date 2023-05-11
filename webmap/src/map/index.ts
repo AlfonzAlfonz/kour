@@ -1,5 +1,5 @@
 import L from "leaflet";
-import { FOWLayer } from "./FOWLayer";
+import { VectorLayer } from "./VectorLayer";
 
 interface MapState {
   points: L.Point[];
@@ -12,19 +12,19 @@ export interface WebMap {
 }
 
 export const createMap = (): WebMap => {
-  const leafletMap = L.map("map").setView(
-    [34.068737, -118.236494],
-    13
-  );
+  const leafletMap = L.map("map").setView([50.085448, 14.446865], 13);
 
-  L.tileLayer("https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=cHdSuknoOcLSEePavjoJ", {
-    attribution:
-      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  }).addTo(leafletMap);
+  L.tileLayer(
+    "https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=cHdSuknoOcLSEePavjoJ",
+    {
+      attribution:
+        '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+    }
+  ).addTo(leafletMap);
 
   const state: MapState = { points: [] };
 
-  const layer = new FOWLayer(state);
+  const layer = new VectorLayer(state);
   layer.state = state;
   leafletMap.addLayer(layer);
   return {
@@ -34,7 +34,7 @@ export const createMap = (): WebMap => {
       //   L.marker(c).addTo(leafletMap);
       // }
       state.points.push(...coords.map((c) => window.map.leafletMap.project(c)));
-      layer.redraw();
+      // layer.redraw();
     },
     setPoints: (coords) => {
       // for (const c of coords.slice(state.points.length)) {
@@ -42,7 +42,7 @@ export const createMap = (): WebMap => {
       // }
       // state.points = coords;
       state.points = coords.map((c) => window.map.leafletMap.project(c));
-      layer.redraw();
+      // layer.redraw();
     },
   };
 };

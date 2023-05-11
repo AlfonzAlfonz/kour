@@ -22,6 +22,7 @@
 		3578918829E9CA690094E8A0 /* LocationPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3578918729E9CA690094E8A0 /* LocationPublisher.swift */; };
 		3578919029E9F5290094E8A0 /* PersistanceSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3578918F29E9F5290094E8A0 /* PersistanceSubscriber.swift */; };
 		3578919B29EC73310094E8A0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3578919929EC73310094E8A0 /* Model.xcdatamodeld */; };
+		359CCB6329F930D10029383A /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359CCB6229F930D10029383A /* LocationStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		3578918729E9CA690094E8A0 /* LocationPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPublisher.swift; sourceTree = "<group>"; };
 		3578918F29E9F5290094E8A0 /* PersistanceSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceSubscriber.swift; sourceTree = "<group>"; };
 		3578919A29EC73310094E8A0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		359CCB6229F930D10029383A /* LocationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				3573191829EC9BEB000A6333 /* MapLayout.swift */,
 				3573191A29EC9F3D000A6333 /* Settings.swift */,
 				3573191C29ECC173000A6333 /* WebMap.swift */,
+				359CCB6229F930D10029383A /* LocationStore.swift */,
 			);
 			path = fow;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			files = (
 				3578918829E9CA690094E8A0 /* LocationPublisher.swift in Sources */,
 				3500F4CB29EC765F004C02A0 /* LocationViewModel.swift in Sources */,
+				359CCB6329F930D10029383A /* LocationStore.swift in Sources */,
 				356E1C7929E77F7E00D28384 /* ContentView.swift in Sources */,
 				3578919B29EC73310094E8A0 /* Model.xcdatamodeld in Sources */,
 				3578919029E9F5290094E8A0 /* PersistanceSubscriber.swift in Sources */,

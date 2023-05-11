@@ -10,8 +10,8 @@ struct fowApp: App {
     var body: some Scene {
         WindowGroup {
             VStack{
-                ContentView(locations: viewModel)
-                    .environment(\.managedObjectContext, viewModel.persistanceSubscriber.container.viewContext)
+                ContentView(items: viewModel.items)
+                    .environment(\.managedObjectContext, viewModel.locationStore.container.viewContext)
             }
         }
     }

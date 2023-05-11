@@ -3,7 +3,7 @@ import WebKit
 import Combine
 
 struct WebMap: View {
-    @Binding var items: [LocationEntry]
+    var items: [LocationEntry]
 
     var body: some View {
         WebviewView(items: items)

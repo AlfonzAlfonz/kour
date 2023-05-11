@@ -5,12 +5,23 @@ import Combine
 
 final class LocationsViewModel: ObservableObject {
     var locationPublisher = LocationPublisher()
-    var persistanceSubscriber = PersistanceSubscriber()
+    var locationStore = LocationStore()
     var cancellables = [AnyCancellable]()
     
+    @Published var items: [LocationEntry] = []
+    
     init() {
-        locationPublisher.subscribe(persistanceSubscriber)
+        items.append(contentsOf: locationStore.fetchLocations())
+        locationPublisher.sink(receiveValue: receiveLocation).store(in: &cancellables)
     }
+    
+    func receiveLocation (output: LocationPublisher.Output) {
+        let location = locationStore.toLocation(output)
+        items.append(location)
+        
+        locationStore.save()
+    }
+    
 }
 
 

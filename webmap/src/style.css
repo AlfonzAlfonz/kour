@@ -7,3 +7,6 @@
 #map { 
   height: 100vh;
 }
+html {
+  overflow: hidden;
+}

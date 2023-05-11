@@ -1,5 +1,5 @@
 import "zx/globals";
-import { parse, Node } from "node-html-parser";
+import { parse } from "node-html-parser";
 
 await $`pnpm tsc`;
 await $`pnpm vite build`;

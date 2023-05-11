@@ -1,10 +1,7 @@
 import "leaflet/dist/leaflet.css";
 import { createMap, WebMap } from "./map";
-// import { points } from "./points";
 import points from "./export.json";
 import "./style.css";
-import { createLines } from "./createLines";
-import L from "leaflet";
 
 declare global {
   interface Window {
@@ -15,29 +12,14 @@ declare global {
 window.map = createMap();
 
 if (import.meta.env.MODE === "debug") {
-  console.log("AAAA");
-  const map = window.map.leafletMap;
+  let index = 0;
 
-  const lines = createLines(
-    map,
-    points.map((p) => [p[2], p[1]] as L.LatLngTuple)
-  );
-  console.log(lines);
+  window.map.store.addPoints(points.map((p) => [p[1], p[2]]));
 
-  const geoJson = lines.map((l) => ({
-    coordinates: l,
-    type: "LineString" as const,
-  }));
+  // setInterval(() => {
+  //   const [_, lat, lon] = points[index];
 
-  L.geoJson(geoJson, {
-    style: {
-      color: "red",
-      weight: 5,
-      opacity: 1,
-    },
-  }).addTo(map);
-
-  window.map.setPoints(
-    points.map(([_, lat, lon]) => [+lat, +lon] as L.LatLngTuple)
-  );
+  //   window.map.store.addPoints([[+lat, +lon]]);
+  //   index++;
+  // }, 100);
 }

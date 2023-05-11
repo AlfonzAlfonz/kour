@@ -1,45 +1,36 @@
 import L from "leaflet";
-import { MapState, VectorLayer } from "./VectorLayer";
+import { PointStore, createPointStore } from "./pointsStore";
+import { ReactLayer } from "./ReactPointLayer";
 
 export interface WebMap {
   leafletMap: L.Map;
-  addPoints: (coords: L.LatLngTuple[]) => void;
-  setPoints: (coords: L.LatLngTuple[]) => void;
+  store: PointStore;
 }
 
+export const DEFAULT_ZOOM = 16;
+export const FOG_SIZE = 8;
+
 export const createMap = (): WebMap => {
-  const leafletMap = L.map("map").setView([50.085448, 14.446865], 13);
+  const leafletMap = L.map("map", {
+    attributionControl: false,
+    zoomSnap: import.meta.env.MODE === "debug" ? 1 : 0,
+    maxZoom: 18,
+    zoomControl: import.meta.env.MODE === "debug" ? true : false,
+  }).setView([50.085448, 14.446865], DEFAULT_ZOOM);
 
   L.tileLayer(
     "https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=cHdSuknoOcLSEePavjoJ"
   ).addTo(leafletMap);
 
-  const state: MapState = { points: [], loaded: false };
+  const store = createPointStore(leafletMap);
 
-  const layer = new VectorLayer();
-  layer.state = state;
+  const layer = new ReactLayer();
+  layer.store = store;
+  layer.map = leafletMap;
   leafletMap.addLayer(layer);
+
   return {
     leafletMap,
-    addPoints: (coords) => {
-      // for (const c of coords) {
-      //   L.marker(c).addTo(leafletMap);
-      // }
-      state.points.push(...coords.map((c) => window.map.leafletMap.project(c)));
-      if (!state.loaded) {
-        leafletMap.setView(coords.at(-1)!, 16);
-      }
-      state.loaded = true;
-      // layer.redraw();
-    },
-    setPoints: (coords) => {
-      // for (const c of coords.slice(state.points.length)) {
-      //   L.marker(c).addTo(leafletMap);
-      // }
-      // state.points = coords;
-      state.points = coords.map((c) => window.map.leafletMap.project(c));
-      state.loaded = true;
-      // layer.redraw();
-    },
+    store,
   };
 };

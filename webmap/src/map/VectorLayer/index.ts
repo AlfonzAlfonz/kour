@@ -8,10 +8,25 @@ interface Props {
   points: L.Point[];
 }
 
-const FOGSIZE = 20;
+const FOGSIZE = 7;
 
-const createSVG = (name: string) =>
-  document.createElementNS("http://www.w3.org/2000/svg", name);
+const createSVG = (
+  name: string,
+  attributes: Record<string, string | number> = {},
+  children: Node[] = []
+) => {
+  var el = document.createElementNS("http://www.w3.org/2000/svg", name);
+
+  for (const [name, value] of Object.entries(attributes)) {
+    el.setAttribute(name, String(value));
+  }
+
+  for (const child of children) {
+    el.append(child);
+  }
+
+  return el;
+};
 
 export const VectorLayer: FOWLayerClass = L.GridLayer.extend({
   createTile: function (
@@ -21,20 +36,16 @@ export const VectorLayer: FOWLayerClass = L.GridLayer.extend({
     const id = `tile_${coords.x}_${coords.y}`;
     const { points }: Props = (this as any).state ?? {};
 
-    var tile = createSVG("svg");
-
-    var mask = createSVG("mask");
-    mask.id = id;
-    tile.append(mask);
-
-    var fog = createSVG("rect") as SVGRectElement;
-    fog.setAttribute("x", "0");
-    fog.setAttribute("y", "0");
-    fog.setAttribute("width", "100%");
-    fog.setAttribute("height", "100%");
-    fog.setAttribute("fill", "black");
-    fog.setAttribute("mask", `url(#${id})`);
-    tile.append(fog);
+    var tile = createSVG("svg", {}, [
+      createSVG("rect", {
+        x: 0,
+        y: 0,
+        width: "100%",
+        height: "100%",
+        fill: "rgba(0,0,0,0.9)",
+        mask: `url(#${id})`,
+      }),
+    ]);
 
     if (!points) return tile;
 
@@ -62,15 +73,24 @@ export const VectorLayer: FOWLayerClass = L.GridLayer.extend({
         10 * FOGSIZE * zoomMultiplier
     );
 
-    var fog = createSVG("rect") as SVGRectElement;
-    fog.setAttribute("x", "0");
-    fog.setAttribute("y", "0");
-    fog.setAttribute("width", "100%");
-    fog.setAttribute("height", "100%");
-    fog.setAttribute("fill", "white");
-    mask.append(fog);
-
     if (current.length === 0) return tile;
+
+    var gradient = createSVG("radialGradient", { id: "gradient" }, [
+      createSVG("stop", { offset: 0, "stop-color": "black" }),
+      createSVG("stop", { offset: 1, "stop-color": "transparent" }),
+    ]) as SVGLinearGradientElement;
+    tile.append(gradient);
+
+    var mask = createSVG("mask", { id }, [
+      createSVG("rect", {
+        x: 0,
+        y: 0,
+        width: "100%",
+        height: "100%",
+        fill: "white",
+      }),
+    ]);
+    tile.append(mask);
 
     for (const p of current) {
       const x =
@@ -87,7 +107,7 @@ export const VectorLayer: FOWLayerClass = L.GridLayer.extend({
       circle.setAttribute("cx", x.toFixed(4));
       circle.setAttribute("cy", y.toFixed(4));
       circle.setAttribute("r", r.toFixed(4));
-      circle.setAttribute("fill", "black");
+      circle.setAttribute("fill", "url(#gradient)");
 
       mask.append(circle);
     }

@@ -33,7 +33,6 @@ struct LocationStore {
         do {
             try controller.performFetch()
             if let entries = controller.fetchedObjects {
-                print("entries", entries.count)
                 return entries
             }
         } catch {

@@ -11,32 +11,30 @@ struct Settings: View {
     @State var showExport: Bool = false
     
     var body: some View {
-        VStack {
-            Text("Settings")
-            List{
-                Button("Export") {
-                    var text  = ""
-                    for l in locations {
-                        text += "\(l.timestamp),\(l.latitude),\(l.longitude)\n"
-                    }
-                    print(text)
-                    showExport = true
-                }.fileExporter(
-                    isPresented: $showExport,
-                    document: TextFile(locations: locations),
-                    contentType: .plainText
-                ) { result in
-                        
-                    }
-                Text("Danger")
-                Button("Reset") {
-                    showReset = true
+        List{
+            Button("Export") {
+                var text  = ""
+                for l in locations {
+                    text += "\(l.timestamp),\(l.latitude),\(l.longitude)\n"
                 }
-                .confirmationDialog(
-                    "Are you sure?",
-                     isPresented: $showReset
-                ) {
-                    Button("Yes, delete all data"){
+                print(text)
+                showExport = true
+            }.fileExporter(
+                isPresented: $showExport,
+                document: TextFile(locations: locations),
+                contentType: .plainText
+            ) { result in
+                    
+                }
+            Text("Danger")
+            Button("Reset") {
+                showReset = true
+            }
+            .confirmationDialog(
+                "Are you sure?",
+                 isPresented: $showReset
+            ) {
+                Button("Yes, delete all data"){
 //                        for l in locations {
 //                            managedObjectContext.delete(l)
 //                        }
@@ -45,12 +43,11 @@ struct Settings: View {
 //                        } catch {
 //
 //                        }
-                        showReset = false
-                    }
-                        .foregroundColor(.red)
-                    Button("No") {
-                        showReset = false
-                    }
+                    showReset = false
+                }
+                    .foregroundColor(.red)
+                Button("No") {
+                    showReset = false
                 }
             }
         }

@@ -3,6 +3,7 @@ import { VectorLayer } from "./VectorLayer";
 
 interface MapState {
   points: L.Point[];
+  loaded: boolean;
 }
 
 export interface WebMap {
@@ -22,7 +23,7 @@ export const createMap = (): WebMap => {
     }
   ).addTo(leafletMap);
 
-  const state: MapState = { points: [] };
+  const state: MapState = { points: [], loaded: false };
 
   const layer = new VectorLayer(state);
   layer.state = state;
@@ -34,6 +35,10 @@ export const createMap = (): WebMap => {
       //   L.marker(c).addTo(leafletMap);
       // }
       state.points.push(...coords.map((c) => window.map.leafletMap.project(c)));
+      if (!state.loaded) {
+        leafletMap.setView(coords.at(-1)!, 16);
+      }
+      state.loaded = true;
       // layer.redraw();
     },
     setPoints: (coords) => {
@@ -42,6 +47,7 @@ export const createMap = (): WebMap => {
       // }
       // state.points = coords;
       state.points = coords.map((c) => window.map.leafletMap.project(c));
+      state.loaded = true;
       // layer.redraw();
     },
   };

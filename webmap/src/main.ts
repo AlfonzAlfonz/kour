@@ -14,9 +14,7 @@ declare global {
 
 window.map = createMap();
 
-// window.map.addPoints(points.map((x) => [x[1], x[2]]));
-
-if (false && import.meta.env.MODE === "dev") {
+if (import.meta.env.MODE === "debug") {
   console.log("AAAA");
   const map = window.map.leafletMap;
 
@@ -39,27 +37,7 @@ if (false && import.meta.env.MODE === "dev") {
     },
   }).addTo(map);
 
-  // L.geoJSON(
-  //   points.map(
-  //     (p) => ({
-  //       type: "Feature",
-  //       properties: {},
-  //       geometry: {
-  //         coordinates: p,
-  //         type: "Point" as const,
-  //       },
-  //     }),
-  //     {
-  //       style: {
-  //         color: "blue",
-  //         weight: 5,
-  //         opacity: 1,
-  //       },
-  //     }
-  //   )
-  // ).addTo(map);
-
-  // window.map.setPoints(
-  //   points.map(([_, lat, lon]) => [+lat, +lon] as L.LatLngTuple)
-  // );
+  window.map.setPoints(
+    points.map(([_, lat, lon]) => [+lat, +lon] as L.LatLngTuple)
+  );
 }

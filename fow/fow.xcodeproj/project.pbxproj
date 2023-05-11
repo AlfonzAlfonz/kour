@@ -16,7 +16,6 @@
 		356E1C8829E77F7F00D28384 /* fowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356E1C8729E77F7F00D28384 /* fowTests.swift */; };
 		356E1C9229E77F8000D28384 /* fowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356E1C9129E77F8000D28384 /* fowUITests.swift */; };
 		356E1C9429E77F8000D28384 /* fowUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356E1C9329E77F8000D28384 /* fowUITestsLaunchTests.swift */; };
-		3573191929EC9BEB000A6333 /* MapLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573191829EC9BEB000A6333 /* MapLayout.swift */; };
 		3573191B29EC9F3D000A6333 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573191A29EC9F3D000A6333 /* Settings.swift */; };
 		3573191D29ECC173000A6333 /* WebMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573191C29ECC173000A6333 /* WebMap.swift */; };
 		3578918829E9CA690094E8A0 /* LocationPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3578918729E9CA690094E8A0 /* LocationPublisher.swift */; };
@@ -56,7 +55,6 @@
 		356E1C8D29E77F8000D28384 /* fowUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fowUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		356E1C9129E77F8000D28384 /* fowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fowUITests.swift; sourceTree = "<group>"; };
 		356E1C9329E77F8000D28384 /* fowUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fowUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		3573191829EC9BEB000A6333 /* MapLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLayout.swift; sourceTree = "<group>"; };
 		3573191A29EC9F3D000A6333 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3573191C29ECC173000A6333 /* WebMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebMap.swift; sourceTree = "<group>"; };
 		3578918629E9C9250094E8A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 				356E1C7A29E77F7F00D28384 /* Assets.xcassets */,
 				356E1C7C29E77F7F00D28384 /* Preview Content */,
 				3578919929EC73310094E8A0 /* Model.xcdatamodeld */,
-				3573191829EC9BEB000A6333 /* MapLayout.swift */,
 				3573191A29EC9F3D000A6333 /* Settings.swift */,
 				3573191C29ECC173000A6333 /* WebMap.swift */,
 				359CCB6229F930D10029383A /* LocationStore.swift */,
@@ -302,7 +299,6 @@
 				3578919029E9F5290094E8A0 /* PersistanceSubscriber.swift in Sources */,
 				3500F4CD29EC8EF3004C02A0 /* FOWMap.swift in Sources */,
 				3573191B29EC9F3D000A6333 /* Settings.swift in Sources */,
-				3573191929EC9BEB000A6333 /* MapLayout.swift in Sources */,
 				356E1C7729E77F7E00D28384 /* fowApp.swift in Sources */,
 				3573191D29ECC173000A6333 /* WebMap.swift in Sources */,
 			);

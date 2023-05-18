@@ -5,6 +5,8 @@ import { ReactLayer } from "./ReactPointLayer";
 export interface WebMap {
   leafletMap: L.Map;
   store: PointStore;
+
+  updatePosition: (pos: L.LatLngTuple) => unknown;
 }
 
 export const DEFAULT_ZOOM = 16;
@@ -29,8 +31,27 @@ export const createMap = (): WebMap => {
   layer.map = leafletMap;
   leafletMap.addLayer(layer);
 
+  const marker = L.marker([0, 0], {
+    icon: L.divIcon({ html: createEl("div", { class: "user-marker" }) }),
+  });
+  marker.addTo(leafletMap);
+
   return {
     leafletMap,
     store,
+    updatePosition: (pos) => {
+      marker.setLatLng(pos);
+    },
   };
+};
+
+const createEl = <T extends keyof HTMLElementTagNameMap>(
+  tag: T,
+  attrs: Record<string, string | number>
+) => {
+  const el = document.createElement(tag);
+  for (const [key, val] of Object.entries(attrs)) {
+    el.setAttribute(key, String(val));
+  }
+  return el;
 };

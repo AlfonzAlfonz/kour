@@ -1,8 +1,12 @@
 import "zx/globals";
 import { parse } from "node-html-parser";
 
+console.log();
+
 await $`pnpm tsc`;
-await $`pnpm vite build`;
+argv["_"].join(" ") === "-m debug"
+  ? await $`pnpm vite build -m debug`
+  : await $`pnpm vite build`;
 
 const read = (file) => fs.readFile(file).then((b) => b.toString());
 

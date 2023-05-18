@@ -12,9 +12,9 @@ declare global {
 window.map = createMap();
 
 if (import.meta.env.MODE === "debug") {
-  let index = 0;
-
-  window.map.store.addPoints(points.map((p) => [p[1], p[2]]));
+  const coords = points.map((p) => [p[1], p[2]] as L.LatLngTuple);
+  window.map.store.addPoints(coords);
+  window.map.updatePosition(coords.at(-1)!);
 
   // setInterval(() => {
   //   const [_, lat, lon] = points[index];

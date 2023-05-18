@@ -50,19 +50,28 @@ class WebviewController: UIViewController {
     }
     
     func update(items: [LocationEntry]) {
+        print("update", lastAddedIndex)
         if(webView.isLoading) {
             return
         }
+        
+        print("print after update ", lastAddedIndex)
         
         let newItems = Array(items[lastAddedIndex...])
 
         lastAddedIndex = items.count
 
         webView.evaluateJavaScript("""
-            window.map.addPoints([
+            window.map.store.addPoints([
                 \(newItems.map({"[\($0.latitude), \($0.longitude)]"}).joined(separator: ", "))
             ]);
-        """)
+        """,completionHandler: { (a,b) in print(a,b) })
+        
+        let lastNewItem = newItems.last;
+        
+        if(lastNewItem != nil) {
+            webView.evaluateJavaScript("window.map.updatePosition([\(lastNewItem!.latitude), \(lastNewItem!.longitude)])");
+        }
            
     }
 }

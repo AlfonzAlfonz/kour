@@ -1,12 +1,10 @@
 import L from "leaflet";
-import { DEFAULT_ZOOM } from ".";
 
 type ReactListener = () => void;
 
 export type PointStore = ReturnType<typeof createPointStore>;
 
-export const createPointStore = (map: L.Map) => {
-  let loaded = false;
+export const createPointStore = () => {
   let points: L.LatLngTuple[] = [];
 
   let listeners: ReactListener[] = [];
@@ -20,11 +18,6 @@ export const createPointStore = (map: L.Map) => {
   return {
     addPoints: (coords: L.LatLngTuple[]) => {
       points = [...points, ...coords];
-
-      if (!loaded) {
-        map.setView(coords.at(-1)!, DEFAULT_ZOOM);
-      }
-      loaded = true;
 
       emitChange();
     },

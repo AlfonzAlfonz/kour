@@ -27,8 +27,11 @@ struct WebviewView: UIViewControllerRepresentable {
 class WebviewController: UIViewController {
     var lastAddedIndex = 0
     
+    var queue: [LocationEntry] = []
+    
     private lazy var webView: WKWebView = {
         let webView = WKWebView()
+        webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
     }()
@@ -51,27 +54,41 @@ class WebviewController: UIViewController {
     
     func update(items: [LocationEntry]) {
         print("update", lastAddedIndex)
-        if(webView.isLoading) {
-            return
-        }
+
         
         print("print after update ", lastAddedIndex)
         
         let newItems = Array(items[lastAddedIndex...])
 
         lastAddedIndex = items.count
-
+        
+        if(webView.isLoading) {
+            queue = queue + newItems
+        } else {
+            sendPoints(newItems)
+        }
+    }
+    
+    func sendPoints(_ newItems: [LocationEntry]) {
         webView.evaluateJavaScript("""
             window.map.store.addPoints([
                 \(newItems.map({"[\($0.latitude), \($0.longitude)]"}).joined(separator: ", "))
             ]);
-        """,completionHandler: { (a,b) in print(a,b) })
+        """)
         
         let lastNewItem = newItems.last;
         
         if(lastNewItem != nil) {
             webView.evaluateJavaScript("window.map.updatePosition([\(lastNewItem!.latitude), \(lastNewItem!.longitude)])");
         }
-           
+    }
+}
+
+extension WebviewController : WKNavigationDelegate {
+    func webView(
+        _ webView: WKWebView,
+        didFinish navigation: WKNavigation!
+    ) {
+        sendPoints(queue)
     }
 }

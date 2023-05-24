@@ -1,10 +1,8 @@
 import "zx/globals";
 import { parse } from "node-html-parser";
 
-console.log();
-
 await $`pnpm tsc`;
-argv["_"].join(" ") === "-m debug"
+argv.m === "debug"
   ? await $`pnpm vite build -m debug`
   : await $`pnpm vite build`;
 

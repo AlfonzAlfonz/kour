@@ -24,7 +24,7 @@ export const createMap = (): WebMap => {
     "https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=cHdSuknoOcLSEePavjoJ"
   ).addTo(leafletMap);
 
-  const store = createPointStore(leafletMap);
+  const store = createPointStore();
 
   const layer = new ReactLayer();
   layer.store = store;
@@ -41,6 +41,7 @@ export const createMap = (): WebMap => {
     store,
     updatePosition: (pos) => {
       marker.setLatLng(pos);
+      leafletMap.setView(pos);
     },
   };
 };

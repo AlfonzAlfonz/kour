@@ -1,7 +1,7 @@
 import L from "leaflet";
-import { PointStore } from "./pointsStore";
 import { FC, useSyncExternalStore } from "react";
 import { DEFAULT_ZOOM, FOG_SIZE } from ".";
+import { PointStore } from "./pointsStore";
 import { getTileId } from "./utils";
 
 interface Props {

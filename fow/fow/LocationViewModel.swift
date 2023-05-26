@@ -4,13 +4,17 @@ import CoreData
 import Combine
 
 final class LocationsViewModel: ObservableObject {
-    var locationPublisher = LocationPublisher()
+    var locationPublisher: LocationPublisher
     var locationStore = LocationStore()
     var cancellables = [AnyCancellable]()
     
     @Published var items: [LocationEntry] = []
     
-    init() {
+    init(requestOnInit: Bool) {
+        locationPublisher = LocationPublisher()
+        if (requestOnInit) {
+            locationPublisher.requestAuthorization()
+        }
         items.append(contentsOf: locationStore.fetchLocations())
         locationPublisher.sink(receiveValue: receiveLocation).store(in: &cancellables)
     }

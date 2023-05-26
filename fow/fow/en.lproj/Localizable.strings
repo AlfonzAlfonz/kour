@@ -1,0 +1,2 @@
+"WelcomeModalStep1Description" = "Kouř is a game centered around exploring. This means that this app requires location tracking. All location data are saved to your device / iCloud account and are never send anywhere.";
+"WelcomeModalStep2Description" = "Your device tries to reduce power consumption and may close apps which run in the background, but this is not ideal in case of Kouř. To override this set location tracking to \"Always\":";

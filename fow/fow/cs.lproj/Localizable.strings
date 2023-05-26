@@ -1,0 +1,8 @@
+"Map" = "Mapa";
+"Settings" = "Nastavení";
+"Welcome to Kouř" = "Vítejte v aplikaci Kouř";
+"WelcomeModalStep1Description" = "Kouř je hra o objevování. Z toho plyne, že tato aplikace vyžaduje sledování polohy. Všechny polohové data jsou uložené pouze na vašem zařízení / iCloud účtu a nikam se neposílají.";
+"Allow tracking" = "Povolit sledování polohy";
+"Tracking settings" = "Nastavení sledování";
+"WelcomeModalStep2Description" = "Vaše zařízení se snaží šetřit baterku a může zavřít aplikace, které běží v pozadí, v případě Kouře to ale nemusí být žádoucí. Nastavením sledování polohy na \"Trvale\", můžete tomuto předejít";
+"Open settings" = "Otevřít nastavení";

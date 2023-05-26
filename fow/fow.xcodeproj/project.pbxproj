@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		3500F4CB29EC765F004C02A0 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3500F4CA29EC765F004C02A0 /* LocationViewModel.swift */; };
+		352398462A20155F00CB7A98 /* WelcomeModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352398452A20155F00CB7A98 /* WelcomeModal.swift */; };
+		3523984A2A201AE900CB7A98 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3523984C2A201AE900CB7A98 /* Localizable.strings */; };
+		352398532A2034B700CB7A98 /* YatraOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 352398522A2034B700CB7A98 /* YatraOne-Regular.ttf */; };
+		352398582A2039B000CB7A98 /* Tinos-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 352398572A2039B000CB7A98 /* Tinos-Regular.ttf */; };
 		352524912A1665F100AD0082 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 352524902A1665F100AD0082 /* Sentry */; settings = {ATTRIBUTES = (Required, ); }; };
 		356E1C7729E77F7E00D28384 /* fowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356E1C7629E77F7E00D28384 /* fowApp.swift */; };
 		356E1C7929E77F7E00D28384 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356E1C7829E77F7E00D28384 /* ContentView.swift */; };
@@ -44,6 +48,11 @@
 
 /* Begin PBXFileReference section */
 		3500F4CA29EC765F004C02A0 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		352398452A20155F00CB7A98 /* WelcomeModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeModal.swift; sourceTree = "<group>"; };
+		3523984D2A201AEC00CB7A98 /* cs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		352398502A202ED100CB7A98 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		352398522A2034B700CB7A98 /* YatraOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YatraOne-Regular.ttf"; sourceTree = "<group>"; };
+		352398572A2039B000CB7A98 /* Tinos-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Tinos-Regular.ttf"; sourceTree = "<group>"; };
 		356E1C7329E77F7E00D28384 /* Kouř.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kouř.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		356E1C7629E77F7E00D28384 /* fowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fowApp.swift; sourceTree = "<group>"; };
 		356E1C7829E77F7E00D28384 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -90,6 +99,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		352398472A20156600CB7A98 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				352398542A20390F00CB7A98 /* Settings */,
+				356E1C7829E77F7E00D28384 /* ContentView.swift */,
+				352398452A20155F00CB7A98 /* WelcomeModal.swift */,
+				3573191C29ECC173000A6333 /* WebMap.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		352398542A20390F00CB7A98 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3573191A29EC9F3D000A6333 /* Settings.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		356E1C6A29E77F7E00D28384 = {
 			isa = PBXGroup;
 			children = (
@@ -113,19 +141,20 @@
 		356E1C7529E77F7E00D28384 /* fow */ = {
 			isa = PBXGroup;
 			children = (
+				352398472A20156600CB7A98 /* Views */,
 				35993B6629FA97630042CCEB /* build.html */,
 				3578918629E9C9250094E8A0 /* Info.plist */,
 				356E1C7629E77F7E00D28384 /* fowApp.swift */,
 				3578918729E9CA690094E8A0 /* LocationPublisher.swift */,
 				3500F4CA29EC765F004C02A0 /* LocationViewModel.swift */,
 				3578918F29E9F5290094E8A0 /* PersistanceSubscriber.swift */,
-				356E1C7829E77F7E00D28384 /* ContentView.swift */,
 				356E1C7A29E77F7F00D28384 /* Assets.xcassets */,
+				352398572A2039B000CB7A98 /* Tinos-Regular.ttf */,
+				352398522A2034B700CB7A98 /* YatraOne-Regular.ttf */,
 				356E1C7C29E77F7F00D28384 /* Preview Content */,
 				3578919929EC73310094E8A0 /* Model.xcdatamodeld */,
-				3573191A29EC9F3D000A6333 /* Settings.swift */,
-				3573191C29ECC173000A6333 /* WebMap.swift */,
 				359CCB6229F930D10029383A /* LocationStore.swift */,
+				3523984C2A201AE900CB7A98 /* Localizable.strings */,
 			);
 			path = fow;
 			sourceTree = "<group>";
@@ -244,6 +273,7 @@
 			knownRegions = (
 				en,
 				Base,
+				cs,
 			);
 			mainGroup = 356E1C6A29E77F7E00D28384;
 			packageReferences = (
@@ -266,8 +296,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				356E1C7E29E77F7F00D28384 /* Preview Assets.xcassets in Resources */,
+				3523984A2A201AE900CB7A98 /* Localizable.strings in Resources */,
 				35993B6729FA97630042CCEB /* build.html in Resources */,
 				356E1C7B29E77F7F00D28384 /* Assets.xcassets in Resources */,
+				352398532A2034B700CB7A98 /* YatraOne-Regular.ttf in Resources */,
+				352398582A2039B000CB7A98 /* Tinos-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +330,7 @@
 				359CCB6329F930D10029383A /* LocationStore.swift in Sources */,
 				356E1C7929E77F7E00D28384 /* ContentView.swift in Sources */,
 				3578919B29EC73310094E8A0 /* Model.xcdatamodeld in Sources */,
+				352398462A20155F00CB7A98 /* WelcomeModal.swift in Sources */,
 				3578919029E9F5290094E8A0 /* PersistanceSubscriber.swift in Sources */,
 				3573191B29EC9F3D000A6333 /* Settings.swift in Sources */,
 				356E1C7729E77F7E00D28384 /* fowApp.swift in Sources */,
@@ -335,6 +369,18 @@
 			targetProxy = 356E1C8E29E77F8000D28384 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3523984C2A201AE900CB7A98 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3523984D2A201AEC00CB7A98 /* cs */,
+				352398502A202ED100CB7A98 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		356E1C9529E77F8000D28384 /* Debug */ = {

@@ -18,6 +18,9 @@ class LocationPublisher: NSObject {
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         self.locationManager.distanceFilter = 50
+    }
+    
+    func requestAuthorization() {
         self.locationManager.allowsBackgroundLocationUpdates = true
         self.locationManager.showsBackgroundLocationIndicator = true
         self.locationManager.requestAlwaysAuthorization()

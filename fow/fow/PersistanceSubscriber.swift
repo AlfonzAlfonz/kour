@@ -3,10 +3,20 @@ import Combine
 import CoreData
 
 class PersistanceSubscriber: NSObject {
-    var container: NSPersistentContainer = NSPersistentContainer(name: "Model");
+    var container: NSPersistentCloudKitContainer = NSPersistentCloudKitContainer(name: "Model");
 
     override init() {
         super.init()
+        
+        #if DEBUG
+        do {
+            // Use the container to initialize the development schema.
+            try container.initializeCloudKitSchema(options: [])
+        } catch {
+            // Handle any errors.
+        }
+        #endif
+        
         container.loadPersistentStores { description, error in
             if let error = error {
                 fatalError("Error: \(error.localizedDescription)")

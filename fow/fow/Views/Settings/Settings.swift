@@ -9,61 +9,39 @@ struct Settings: View {
     
     @State var showReset: Bool = false
     @State var showExport: Bool = false
-    @State var showAttribution: Bool = false
+    @State var showAbout: Bool = false
+    @State var showMapType: Bool = false
     
     var body: some View {
         VStack {
             Text("Kouř")
                 .font(.yatra(size: 32))
                 .background(.background)
-                .padding(.bottom, -20)
+                .padding(.bottom, -6)
             List {
-                Button("Export") {
-                    var text  = ""
-                    for l in locations {
-                        text += "\(l.timestamp),\(l.latitude),\(l.longitude)\n"
+//                Button("Export") {
+//                    var text  = ""
+//                    for l in locations {
+//                        text += "\(l.timestamp),\(l.latitude),\(l.longitude)\n"
+//                    }
+//                    print(text)
+//                    showExport = true
+//                }.fileExporter(
+//                    isPresented: $showExport,
+//                    document: TextFile(locations: locations),
+//                    contentType: .plainText
+//                ) { result in
+//
+//                }
+                HStack{
+                    Button("Map type") {
+                        showMapType = true
                     }
-                    print(text)
-                    showExport = true
-                }.fileExporter(
-                    isPresented: $showExport,
-                    document: TextFile(locations: locations),
-                    contentType: .plainText
-                ) { result in
-                    
-                }
-                Button("Attribution") {
-                    showAttribution = true
-                }
-                .sheet(isPresented: $showAttribution, content: {
-                    VStack{
-                        Label("Attribution", systemImage: "star.fill")
-                        List {
-                            Group {
-                                Label("Leaflet", systemImage: "map")
-                                Text("""
-Website:
-https://leafletjs.com/
-""")
-                            }
-                            Group {
-                                Label("OpenStreetMaps", systemImage: "map")
-                                Text("""
-Licensed under license:
-https://www.openstreetmap.org/copyright
-""")
-                            }
-                            Group {
-                                Label("Map Tiler", systemImage: "map")
-                                Text("""
-Licensed under license:
-https://www.maptiler.com/copyright/
-""")
-                            }
-                        }
-                        Spacer()
-                    }.padding(16)
-                })
+                    Spacer()
+                }.sheet(isPresented: $showMapType, content: { SettingsMapType(close: { showMapType = false }) })
+                Button("About Kouř") {
+                    showAbout = true
+                }.sheet(isPresented: $showAbout, content: { SettingsAbout() })
                 //            Text("Danger")
                 //            Button("Reset") {
                 //                showReset = true

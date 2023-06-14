@@ -7,6 +7,7 @@ export interface WebMap {
   store: PointStore;
 
   updatePosition: (pos: L.LatLngTuple) => unknown;
+  updateMapType: (type: string) => unknown;
 }
 
 export const DEFAULT_ZOOM = 16;
@@ -20,7 +21,7 @@ export const createMap = (): WebMap => {
     zoomControl: import.meta.env.MODE === "debug" ? true : false,
   }).setView([50.085448, 14.446865], DEFAULT_ZOOM);
 
-  L.tileLayer(
+  const tileLayer = L.tileLayer(
     "https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=cHdSuknoOcLSEePavjoJ"
   ).addTo(leafletMap);
 
@@ -42,6 +43,9 @@ export const createMap = (): WebMap => {
     updatePosition: (pos) => {
       marker.setLatLng(pos);
       leafletMap.setView(pos);
+    },
+    updateMapType: (type) => {
+      tileLayer.setUrl(type);
     },
   };
 };

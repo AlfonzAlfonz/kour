@@ -71,6 +71,7 @@ class WebviewController: UIViewController {
     
     func sendPoints(_ newItems: [LocationEntry]) {
         webView.evaluateJavaScript("""
+            window.map.updateMapType("\(UserDefaults.standard.string(forKey: "map_type") ?? SettingsMapType.types[0].url)");
             window.map.store.addPoints([
                 \(newItems.map({"[\($0.latitude), \($0.longitude)]"}).joined(separator: ", "))
             ]);

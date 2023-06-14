@@ -51,7 +51,7 @@ extension Font {
     static func yatra(_ size: YatraFontSize) -> Font { return Font.custom("Yatra One", size: size.rawValue) }
     static let yatra = yatra(size: 16)
     
-    static let tinos = Font.custom("Tinos", size: 20)
+    static let tinos = Font.custom("Tinos", size: 18)
 }
 
 enum YatraFontSize: CGFloat {

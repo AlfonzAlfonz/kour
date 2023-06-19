@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prepare": "pnpm build",
     "dev": "vite -m debug",
     "start": "vite",
     "build": "node build.js",
@@ -23,6 +24,7 @@
     "polygon-offset": "^0.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sharp": "^0.32.1",
     "zx": "^7.2.1"
   }
 }

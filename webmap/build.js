@@ -2,6 +2,9 @@ import "zx/globals";
 import { parse } from "node-html-parser";
 
 await $`pnpm tsc`;
+
+await $`node preparefog.js`;
+
 argv.m === "debug"
   ? await $`pnpm vite build -m debug`
   : await $`pnpm vite build`;

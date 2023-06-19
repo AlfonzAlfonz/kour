@@ -1,6 +1,7 @@
 import L from "leaflet";
-import { PointStore, createPointStore } from "./pointsStore";
+import { DEFAULT_ZOOM, TILE_SIZE } from "../config";
 import { ReactLayer } from "./ReactPointLayer";
+import { PointStore, createPointStore } from "./pointsStore";
 
 export interface WebMap {
   leafletMap: L.Map;
@@ -9,9 +10,6 @@ export interface WebMap {
   updatePosition: (pos: L.LatLngTuple) => unknown;
   updateMapType: (type: string) => unknown;
 }
-
-export const DEFAULT_ZOOM = 16;
-export const FOG_SIZE = 8;
 
 export const createMap = (): WebMap => {
   const leafletMap = L.map("map", {
@@ -22,7 +20,8 @@ export const createMap = (): WebMap => {
   }).setView([50.085448, 14.446865], DEFAULT_ZOOM);
 
   const tileLayer = L.tileLayer(
-    "https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=cHdSuknoOcLSEePavjoJ"
+    "https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=cHdSuknoOcLSEePavjoJ",
+    { tileSize: TILE_SIZE }
   ).addTo(leafletMap);
 
   const store = createPointStore();

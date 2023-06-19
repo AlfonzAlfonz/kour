@@ -39,9 +39,9 @@ class WebviewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        webView.load(URLRequest(
-            url: Bundle.main.url(forResource: "build", withExtension: "html")!
-        ))
+        let url = Bundle.main.url(forResource: "build", withExtension: "html", subdirectory: "dist")!
+        
+        webView.loadFileURL(url, allowingReadAccessTo: url)
 
         view.addSubview(webView)
         NSLayoutConstraint.activate([
@@ -53,11 +53,6 @@ class WebviewController: UIViewController {
     }
     
     func update(items: [LocationEntry]) {
-        print("update", lastAddedIndex)
-
-        
-        print("print after update ", lastAddedIndex)
-        
         let newItems = Array(items[lastAddedIndex...])
 
         lastAddedIndex = items.count
@@ -65,11 +60,11 @@ class WebviewController: UIViewController {
         if(webView.isLoading) {
             queue = queue + newItems
         } else {
-            sendPoints(newItems)
+            sendPoints(newItems, updatePosition: false)
         }
     }
     
-    func sendPoints(_ newItems: [LocationEntry]) {
+    func sendPoints(_ newItems: [LocationEntry], updatePosition: Bool) {
         webView.evaluateJavaScript("""
             window.map.updateMapType("\(UserDefaults.standard.string(forKey: "map_type") ?? SettingsMapType.types[0].url)");
             window.map.store.addPoints([
@@ -90,6 +85,6 @@ extension WebviewController : WKNavigationDelegate {
         _ webView: WKWebView,
         didFinish navigation: WKNavigation!
     ) {
-        sendPoints(queue)
+        sendPoints(queue, updatePosition: true)
     }
 }

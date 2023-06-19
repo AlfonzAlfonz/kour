@@ -2,12 +2,15 @@ import "leaflet/dist/leaflet.css";
 import { createMap, WebMap } from "./map";
 import points from "./export.json";
 import "./style.css";
+import { createDefs } from "./svg/createDefs";
 
 declare global {
   interface Window {
     map: WebMap;
   }
 }
+
+createDefs(document.querySelector("#defs")!);
 
 window.map = createMap();
 

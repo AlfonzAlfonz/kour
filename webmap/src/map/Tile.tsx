@@ -1,8 +1,8 @@
 import L from "leaflet";
 import { FC, useSyncExternalStore } from "react";
-import { DEFAULT_ZOOM, FOG_SIZE } from ".";
 import { PointStore } from "./pointsStore";
 import { getTileId } from "./utils";
+import { DEFAULT_ZOOM, FOG_SIZE, TILE_SIZE } from "../config";
 
 interface Props {
   coords: L.Coords;
@@ -22,7 +22,7 @@ export const Tile: FC<Props> = ({ coords, tileSize, store }) => {
     y: (coords.y * 2 ** DEFAULT_ZOOM) / tileSize.y,
   };
 
-  const maskPoint = (tuple: L.LatLngTuple) => {
+  const maskPoint = (tuple: L.LatLngTuple, i: number) => {
     const p = window.map.leafletMap.project(tuple, coords.z);
 
     const x = p.x - absoluteCoords.x;
@@ -34,6 +34,7 @@ export const Tile: FC<Props> = ({ coords, tileSize, store }) => {
 
     return (
       <circle
+        key={i}
         cx={x.toFixed(4)}
         cy={y.toFixed(4)}
         r={r.toFixed(4)}
@@ -44,18 +45,47 @@ export const Tile: FC<Props> = ({ coords, tileSize, store }) => {
 
   return (
     <>
+      <defs>
+        {/* <mask id={`${getTileId(coords)}_patternmask`}>
+          <image
+            x={0}
+            y={0}
+            href={`/image${(coords.x % 4) + 1}x${(coords.y % 4) + 1}.png`}
+            width="100%"
+            height="100%"
+            style={{ filter: "invert()" }}
+          ></image>
+        </mask> */}
+        <pattern
+          id={getTileId(coords) + "_pattern"}
+          x={0}
+          y={0}
+          patternUnits="userSpaceOnUse"
+          height={TILE_SIZE}
+          width={TILE_SIZE}
+        >
+          <image
+            x={0}
+            y={0}
+            href={`/image${(coords.x % 4) + 1}x${(coords.y % 4) + 1}.png`}
+            width="100%"
+            height="100%"
+            // mask={`url(#${getTileId(coords)}_patternmask)`}
+          ></image>
+        </pattern>
+        <mask id={getTileId(coords)}>
+          <rect x={0} y={0} width="100%" height="100%" fill="white" />
+          {points.map(maskPoint)}
+        </mask>
+      </defs>
       <rect
         x={0}
         y={0}
         width="100%"
         height="100%"
-        fill="rgba(0,0,0,0.9)"
+        fill={`url(#${getTileId(coords)}_pattern)`}
         mask={`url(#${getTileId(coords)})`}
       />
-      <mask id={getTileId(coords)}>
-        <rect x={0} y={0} width="100%" height="100%" fill="white" />
-        {points.map(maskPoint)}
-      </mask>
     </>
   );
 };

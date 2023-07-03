@@ -1,9 +1,14 @@
 import "zx/globals";
 import sharp from "sharp";
+import { TEXTURE_GRID_COUNT } from "./src/config.js";
 
 let img = sharp("./textures/6.png");
 
 let { width, height } = await img.metadata();
+
+if (!width || !height) {
+  throw new Error("Missing image metadata");
+}
 
 console.info(`Image width: ${width}, height: ${height}`);
 
@@ -11,15 +16,15 @@ if (width !== height) {
   throw new Error("Image width is different from its height");
 }
 
-if (width % 4 !== 0) {
-  const s = 512;
+if (width % TEXTURE_GRID_COUNT !== 0) {
+  const s = 2048;
   img = img.resize(s);
   width = s;
   height = s;
   console.info(`Image resized to ${width}`);
 }
 
-const dWidth = width / 4;
+const dWidth = width / TEXTURE_GRID_COUNT;
 
 await fs
   .readdir(path.join(".", "public"), { withFileTypes: true })
@@ -31,8 +36,8 @@ await fs
   .then((p) => Promise.all(p));
 
 await spinner("Resizing", async () => {
-  for (const [x] of Array(4).entries()) {
-    for (const [y] of Array(4).entries()) {
+  for (const [x] of Array(TEXTURE_GRID_COUNT).entries()) {
+    for (const [y] of Array(TEXTURE_GRID_COUNT).entries()) {
       await img
         .extract({
           left: x * dWidth,

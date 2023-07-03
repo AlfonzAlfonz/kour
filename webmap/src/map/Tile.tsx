@@ -1,36 +1,43 @@
 import L from "leaflet";
-import { FC, useSyncExternalStore } from "react";
-import { PointStore } from "./pointsStore";
+import { FC } from "react";
+import {
+  DEFAULT_ZOOM,
+  FOG_SIZE,
+  TEXTURE_GRID_COUNT,
+  TILE_SIZE,
+} from "../config";
+import { usePoints } from "../pointStore";
+import { getPointsInBounds } from "../pointStore/tree";
+import { getAppState } from "../state";
+import { ReactPointLayer } from "./ReactPointLayer";
 import { getTileId } from "./utils";
-import { DEFAULT_ZOOM, FOG_SIZE, TILE_SIZE } from "../config";
 
 interface Props {
   coords: L.Coords;
   tileSize: L.Point;
 
-  store: PointStore;
-  map: L.Map;
+  layer: ReactPointLayer;
 }
 
-export const Tile: FC<Props> = ({ coords, tileSize, store }) => {
-  const points = usePoints(store);
-
-  const zoomMultiplier = Math.pow(2, coords.z - 13);
+export const Tile: FC<Props> = ({ coords, layer }) => {
+  const { tree } = usePoints(getAppState().store);
 
   const absoluteCoords = {
-    x: (coords.x * 2 ** DEFAULT_ZOOM) / tileSize.x,
-    y: (coords.y * 2 ** DEFAULT_ZOOM) / tileSize.y,
+    x: (coords.x * 2 ** DEFAULT_ZOOM) / TILE_SIZE,
+    y: (coords.y * 2 ** DEFAULT_ZOOM) / TILE_SIZE,
   };
+  const r = FOG_SIZE * Math.pow(2, coords.z - 13);
 
-  const maskPoint = (tuple: L.LatLngTuple, i: number) => {
-    const p = window.map.leafletMap.project(tuple, coords.z);
+  const c = new L.Point(coords.x - 0.2, coords.y - 0.2);
+  (c as any).z = coords.z;
+
+  const lls = getPointsInBounds(tree, layer._tileCoordsToBounds(c as any));
+
+  const maskPoint = (ll: L.LatLngTuple, i: number) => {
+    const p = getAppState().map.project(ll, coords.z);
 
     const x = p.x - absoluteCoords.x;
     const y = p.y - absoluteCoords.y;
-    const r = FOG_SIZE * zoomMultiplier;
-
-    if (x < -r || x > tileSize.x + r || y < -r || y > tileSize.y + r)
-      return null;
 
     return (
       <circle
@@ -46,52 +53,23 @@ export const Tile: FC<Props> = ({ coords, tileSize, store }) => {
   return (
     <>
       <defs>
-        {/* <mask id={`${getTileId(coords)}_patternmask`}>
-          <image
-            x={0}
-            y={0}
-            href={`/image${(coords.x % 4) + 1}x${(coords.y % 4) + 1}.png`}
-            width="100%"
-            height="100%"
-            style={{ filter: "invert()" }}
-          ></image>
-        </mask> */}
-        <pattern
-          id={getTileId(coords) + "_pattern"}
-          x={0}
-          y={0}
-          patternUnits="userSpaceOnUse"
-          height={TILE_SIZE}
-          width={TILE_SIZE}
-        >
-          <image
-            x={0}
-            y={0}
-            href={`/image${(coords.x % 4) + 1}x${(coords.y % 4) + 1}.png`}
-            width="100%"
-            height="100%"
-            // mask={`url(#${getTileId(coords)}_patternmask)`}
-          ></image>
-        </pattern>
         <mask id={getTileId(coords)}>
           <rect x={0} y={0} width="100%" height="100%" fill="white" />
-          {points.map(maskPoint)}
+          {lls.map(maskPoint)}
         </mask>
       </defs>
-      <rect
+      <image
         x={0}
         y={0}
+        href={`image${(coords.x % TEXTURE_GRID_COUNT) + 1}x${
+          (coords.y % TEXTURE_GRID_COUNT) + 1
+        }.png`}
+        // fill="black"
         width="100%"
         height="100%"
-        fill={`url(#${getTileId(coords)}_pattern)`}
         mask={`url(#${getTileId(coords)})`}
+        imageRendering="optimizeSpeed"
       />
     </>
   );
 };
-
-const usePoints = (store: PointStore) =>
-  useSyncExternalStore(
-    (listener) => store.subscribe(listener),
-    store.getSnapshot
-  );

@@ -1,51 +1,34 @@
 import L from "leaflet";
 import { DEFAULT_ZOOM, TILE_SIZE } from "../config";
+import { featureFlags } from "../featureFlags";
 import { ReactLayer } from "./ReactPointLayer";
-import { PointStore, createPointStore } from "./pointsStore";
 
-export interface WebMap {
-  leafletMap: L.Map;
-  store: PointStore;
-
-  updatePosition: (pos: L.LatLngTuple) => unknown;
-  updateMapType: (type: string) => unknown;
-}
-
-export const createMap = (): WebMap => {
-  const leafletMap = L.map("map", {
+export const createMap = (initialMapType: string) => {
+  const map = L.map("map", {
     attributionControl: false,
-    zoomSnap: import.meta.env.MODE === "debug" ? 1 : 0,
+    zoomSnap: featureFlags.debugControls ? 1 : 0,
     maxZoom: 18,
-    zoomControl: import.meta.env.MODE === "debug" ? true : false,
+    zoomControl: featureFlags.debugControls ? true : false,
+    inertiaMaxSpeed: 300,
   }).setView([50.085448, 14.446865], DEFAULT_ZOOM);
 
-  const tileLayer = L.tileLayer(
-    "https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=cHdSuknoOcLSEePavjoJ",
-    { tileSize: TILE_SIZE }
-  ).addTo(leafletMap);
+  const tileLayer = L.tileLayer(initialMapType, { tileSize: TILE_SIZE }).addTo(
+    map
+  );
 
-  const store = createPointStore();
-
-  const layer = new ReactLayer();
-  layer.store = store;
-  layer.map = leafletMap;
-  leafletMap.addLayer(layer);
+  const pointLayer = new ReactLayer();
+  map.addLayer(pointLayer);
 
   const marker = L.marker([0, 0], {
     icon: L.divIcon({ html: createEl("div", { class: "user-marker" }) }),
   });
-  marker.addTo(leafletMap);
+  marker.addTo(map);
 
   return {
-    leafletMap,
-    store,
-    updatePosition: (pos) => {
-      marker.setLatLng(pos);
-      leafletMap.setView(pos);
-    },
-    updateMapType: (type) => {
-      tileLayer.setUrl(type);
-    },
+    map,
+    tileLayer,
+    pointLayer,
+    marker,
   };
 };
 

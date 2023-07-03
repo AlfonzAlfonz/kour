@@ -25,7 +25,11 @@ struct WebviewView: UIViewControllerRepresentable {
 }
 
 class WebviewController: UIViewController {
-    var lastAddedIndex = 0
+    private lazy var manager = {
+        let m = MapStateManager()
+        m.delegate = self
+        return m
+    }()
     
     var queue: [LocationEntry] = []
     
@@ -41,7 +45,9 @@ class WebviewController: UIViewController {
         
         let url = Bundle.main.url(forResource: "build", withExtension: "html", subdirectory: "dist")!
         
-        webView.loadFileURL(url, allowingReadAccessTo: url)
+        let dir = url.deletingLastPathComponent()
+        
+        webView.loadFileURL(url, allowingReadAccessTo: dir)
 
         view.addSubview(webView)
         NSLayoutConstraint.activate([
@@ -53,29 +59,10 @@ class WebviewController: UIViewController {
     }
     
     func update(items: [LocationEntry]) {
-        let newItems = Array(items[lastAddedIndex...])
-
-        lastAddedIndex = items.count
-        
         if(webView.isLoading) {
-            queue = queue + newItems
+            queue = items
         } else {
-            sendPoints(newItems, updatePosition: false)
-        }
-    }
-    
-    func sendPoints(_ newItems: [LocationEntry], updatePosition: Bool) {
-        webView.evaluateJavaScript("""
-            window.map.updateMapType("\(UserDefaults.standard.string(forKey: "map_type") ?? SettingsMapType.types[0].url)");
-            window.map.store.addPoints([
-                \(newItems.map({"[\($0.latitude), \($0.longitude)]"}).joined(separator: ", "))
-            ]);
-        """)
-        
-        let lastNewItem = newItems.last;
-        
-        if(lastNewItem != nil) {
-            webView.evaluateJavaScript("window.map.updatePosition([\(lastNewItem!.latitude), \(lastNewItem!.longitude)])");
+            manager.update(items)
         }
     }
 }
@@ -85,6 +72,50 @@ extension WebviewController : WKNavigationDelegate {
         _ webView: WKWebView,
         didFinish navigation: WKNavigation!
     ) {
-        sendPoints(queue, updatePosition: true)
+        manager.update(queue)
+        queue = []
     }
+}
+
+extension WebviewController : MapStateUpdate {
+    func initState(initialData: [LocationEntry]) {
+        webView.evaluateJavaScript("""
+            receiver.init(
+                [\(initialData.map({"[\($0.latitude), \($0.longitude)]"}).joined(separator: ", "))],
+                "\(UserDefaults.standard.string(forKey: "map_type") ?? SettingsMapType.types[0].url)"
+            );
+        """)
+    }
+    
+    func update(newItems: [LocationEntry]) {
+        webView.evaluateJavaScript("""
+            receiver.update([
+                \(newItems.map({"[\($0.latitude), \($0.longitude)]"}).joined(separator: ", "))
+            ]);
+        """)
+    }
+    
+    
+}
+
+class MapStateManager : NSObject {
+    private var initialized = false
+    private var lastAddedIndex = 0
+    
+    var delegate: MapStateUpdate? = nil
+    
+    func update(_ newItems: [LocationEntry]) {
+        if(!initialized) {
+            delegate?.initState(initialData: newItems)
+            initialized = true
+        } else {
+            delegate?.update(newItems: Array(newItems[lastAddedIndex...]))
+        }
+        lastAddedIndex = newItems.count
+    }
+}
+
+protocol MapStateUpdate {
+    func initState(initialData: [LocationEntry]) -> Void
+    func update(newItems: [LocationEntry]) -> Void
 }

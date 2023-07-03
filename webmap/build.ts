@@ -3,13 +3,9 @@ import { parse } from "node-html-parser";
 
 await $`pnpm tsc`;
 
-await $`node preparefog.js`;
+await $`pnpm preparefog`;
 
-argv.m === "debug"
-  ? await $`pnpm vite build -m debug`
-  : await $`pnpm vite build`;
-
-const read = (file) => fs.readFile(file).then((b) => b.toString());
+const read = (file: string) => fs.readFile(file).then((b) => b.toString());
 
 const html = parse(await read("./dist/index.html"));
 
@@ -36,12 +32,12 @@ const scripts = await fs
     )
   );
 
-const head = html.querySelector("head");
+const head = html.querySelector("head")!;
 for (const s of styles) {
   head.appendChild(parse(`<style>${s}</style>`));
 }
 
-const body = html.querySelector("body");
+const body = html.querySelector("body")!;
 for (const s of scripts) {
   body.appendChild(parse(`<script type="module">${s}</script>`));
 }

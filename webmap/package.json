@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "prepare": "pnpm build",
-    "dev": "vite -m debug",
-    "start": "vite",
-    "build": "node build.js",
+    "dev": "vite",
+    "build": "ts-node --esm build.ts",
+    "preparefog": "ts-node --esm preparefog.ts",
     "preview": "vite preview"
   },
   "devDependencies": {
@@ -25,6 +25,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sharp": "^0.32.1",
+    "ts-node": "^10.9.1",
     "zx": "^7.2.1"
   }
 }
